@@ -13,6 +13,10 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
+app.get("/about", (req, res) => {
+    res.render("about");
+  });
+
 app.listen(PORT, (err) => {
     if (err) console.log(err);
     console.log(`Server running on ${PORT}`);
