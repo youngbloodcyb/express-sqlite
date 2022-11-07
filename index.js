@@ -32,6 +32,20 @@ db.run(sql_create, err => {
     console.log("Successful creation of the 'Books' table");
 });
 
+console.log("Successful creation of the 'Books' table");
+// Database seeding
+const sql_insert = `INSERT INTO Books (Book_ID, Title, Author, Comments) VALUES
+(1, 'Test 1', 'Cam', 'First in the series'),
+(2, 'Test 2', 'Alani', 'Second in the series'),
+(3, 'Test 3', 'Auston', 'Third in the series');`;
+
+db.run(sql_insert, err => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log("Successful creation of 3 books");
+});
+
 app.get("/", (req, res) => {
     res.render("index");
 });
@@ -47,6 +61,16 @@ app.get("/data", (req, res) => {
     };
     res.render("data", { model: test });
 });
+
+app.get("/books", (req, res) => {
+    const sql = "SELECT * FROM Books ORDER BY Title"
+    db.all(sql, [], (err, rows) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      res.render("books", { model: rows });
+    });
+  });
 
 app.listen(PORT, (err) => {
     if (err) console.log(err);
