@@ -17,6 +17,14 @@ app.get("/about", (req, res) => {
     res.render("about");
   });
 
+app.get("/data", (req, res) => {
+    const test = {
+        title: "Test",
+        items: ["one", "two", "three"]
+    };
+    res.render("data", { model: test });
+});
+
 app.listen(PORT, (err) => {
     if (err) console.log(err);
     console.log(`Server running on ${PORT}`);
